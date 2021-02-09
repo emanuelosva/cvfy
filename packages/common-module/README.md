@@ -1,11 +1,9 @@
 # `@cvfy/common-module`
 
-> TODO: description
+> Description: This module contains common utilities to use across all the project.
 
 ## Usage
 
 ```
-const commonModule = require('@cvfy/common-module');
 
-// TODO: DEMONSTRATE API
 ```
