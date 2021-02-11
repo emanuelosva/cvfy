@@ -19,6 +19,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@cvfy/common-module": "1.0.0",
     "mongoose": "^5.11.15"
   }
 }
