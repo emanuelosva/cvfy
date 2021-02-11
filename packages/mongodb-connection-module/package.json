@@ -1,0 +1,25 @@
+{
+  "name": "@cvfy/mongodb-connection-module",
+  "version": "1.0.0",
+  "description": "This module provides an interface to connect to mongo db across all modules.",
+  "keywords": [],
+  "author": "emanuelosva <emanuelosva@gmail.com>",
+  "license": "ISC",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@cvfy/common-module": "1.0.0",
+    "mongoose": "^5.11.15"
+  }
+}
