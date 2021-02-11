@@ -1,11 +1,10 @@
 # `@cvfy/users-module`
 
-> TODO: description
+> Description: Operations about users:
+> - CRUD for users.
 
 ## Usage
 
-```
-const usersModule = require('@cvfy/users-module');
-
-// TODO: DEMONSTRATE API
+```js
+const {} = require('@cvfy/users-module');
 ```
