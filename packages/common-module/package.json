@@ -19,6 +19,7 @@
     "test": "jest --verbose"
   },
   "dependencies": {
+    "slugify": "^1.4.6",
     "winston": "^3.3.3"
   }
 }
