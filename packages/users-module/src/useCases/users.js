@@ -32,7 +32,7 @@ const makeFindUserByEmail = ({ UsersModel }) => async (email) => {
   }
 }
 
-const makeFindUserId = ({ UsersModel }) => async (id) => {
+const makeFindUserById = ({ UsersModel }) => async (id) => {
   try {
     if (!validators.isMongoId(id)) {
       logger.error('the provided id is invalid')
@@ -74,6 +74,6 @@ const makeUpdateUser = ({ UsersModel }) => async (id, userUpdateDTO) => {
 module.exports = {
   makeCreateUser,
   makeFindUserByEmail,
-  makeFindUserId,
+  makeFindUserById,
   makeUpdateUser,
 }

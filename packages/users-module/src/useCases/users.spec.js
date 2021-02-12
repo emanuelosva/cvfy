@@ -1,7 +1,7 @@
 const {
   makeCreateUser,
   makeFindUserByEmail,
-  makeFindUserId,
+  makeFindUserById,
   makeUpdateUser,
 } = require('./users')
 
@@ -76,7 +76,7 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const findUserId = makeFindUserId(dependencies)
+      const findUserId = makeFindUserById(dependencies)
       const expectedUser = await findUserId(user.id)
 
       // Asserts
