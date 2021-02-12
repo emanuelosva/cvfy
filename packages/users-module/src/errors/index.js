@@ -7,6 +7,7 @@ const UsersErrors = {
   types: {
     EMAIL_EXISTS: 'email already exists',
     USER_NOT_FOUND: 'user not found',
+    INVALID_ID: 'invalid id provided',
     DATABASE_ERROR: 'databa error while save user',
   },
 }
