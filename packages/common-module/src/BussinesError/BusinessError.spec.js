@@ -1,4 +1,4 @@
-const BuildError = require('./index')
+const { BuildError } = require('./BusinessError')
 
 describe('Error bussines', () => {
   describe('Business Error', () => {
