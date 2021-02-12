@@ -3,7 +3,7 @@ const { constants: { entities } } = require('@cvfy/common-module')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-const userTypes = Object.keys(entities.users.enumTypes)
+const userTypes = Object.values(entities.users.enumTypes)
 
 /**
  * Schema
