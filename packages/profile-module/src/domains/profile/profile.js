@@ -8,6 +8,7 @@ const profileOwnerTypes = Object.values(entities.profile.ownerTypes)
  * Schema
  */
 const ProfileSchema = new mognoose.Schema({
+  slug: { type: String, required: true },
   owner: { type: String, required: true },
   ownerType: { type: String, enum: profileOwnerTypes, default: entities.profile.ownerTypes.PEROSN },
   fullName: { type: String, required: true, trim: true },
@@ -20,7 +21,7 @@ const ProfileSchema = new mognoose.Schema({
   socialLinks: { type: Array, default: [] },
   jobs: { type: [String], default: [] },
   projects: { type: [String], default: [] },
-  education: { type: [String], default: [] },
+  educations: { type: [String], default: [] },
   skills: { type: [String], default: [] },
   isPublic: { type: Boolean, default: false },
 }, {
