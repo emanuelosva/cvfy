@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, default: true, trim: true, lower: true },
   name: { type: String, required: true, trim: true, lower: true },
   lastname: { type: String, required: true, trim: true, lower: true },
-  password: { type: String, select: false },
+  password: { type: String },
   isActive: { type: Boolean, default: true },
   type: { type: String, enum: userTypes, default: entities.users.enumTypes.USER },
 }, {

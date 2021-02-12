@@ -6,5 +6,10 @@
 ## Usage
 
 ```js
-const {} = require('@cvfy/users-module');
+const Users = require('@cvfy/users-module');
+
+await Users.createOneUser(data)
+await Users.findById('mongo-id')
+await Users.findByEmail('stan@marvel.com')
+await Users.updateOne('mongo-id', { name: 'newName' })
 ```
