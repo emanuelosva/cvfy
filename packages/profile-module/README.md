@@ -1,11 +1,9 @@
 # `@cvfy/profile-module`
 
-> TODO: description
+> Description: Opeartions about CV profile
 
 ## Usage
 
-```
-const profileModule = require('@cvfy/profile-module');
-
-// TODO: DEMONSTRATE API
+```js
+const Profile = require('@cvfy/profile-module');
 ```
