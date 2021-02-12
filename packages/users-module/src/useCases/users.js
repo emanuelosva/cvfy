@@ -58,9 +58,10 @@ const makeUpdateUser = ({ UsersModel }) => async (id, userUpdateDTO) => {
 
     logger.info(`Updating user for id: ${id}`)
 
-    const user = await UsersModel.updateOne(
-      { _id: id },
-      { $set: { ...userUpdateDTO } },
+    const user = await UsersModel.findByIdAndUpdate(
+      id,
+      { ...userUpdateDTO },
+      { new: true },
     )
     if (user) return user
 

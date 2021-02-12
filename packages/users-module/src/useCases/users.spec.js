@@ -92,7 +92,7 @@ describe('USER - uses cases', () => {
       const updatedUser = { id, ...userDTO }
       const dependencies = {
         UsersModel: {
-          updateOne: jest.fn(() => Promise.resolve(updatedUser)),
+          findByIdAndUpdate: jest.fn(() => Promise.resolve(updatedUser)),
         },
       }
 
@@ -102,7 +102,7 @@ describe('USER - uses cases', () => {
 
       // Asserts
       expect(expectedUser).toStrictEqual(updatedUser)
-      expect(dependencies.UsersModel.updateOne).toHaveBeenCalledWith({ _id: id }, { $set: { ...userDTO } })
+      expect(dependencies.UsersModel.findByIdAndUpdate).toHaveBeenCalledWith(id, { ...userDTO }, { new: true })
     })
     test('it should be rejected if user not found', async () => {
       // Arrange
@@ -110,7 +110,7 @@ describe('USER - uses cases', () => {
       const userDTO = { name: 'Peter', email: 'spider@man.com' }
       const dependencies = {
         UsersModel: {
-          updateOne: jest.fn(() => Promise.resolve(null)),
+          findByIdAndUpdate: jest.fn(() => Promise.resolve(null)),
         },
       }
 
@@ -119,7 +119,7 @@ describe('USER - uses cases', () => {
 
       // Asserts
       await expect(updateUser(id, userDTO)).rejects.toThrow()
-      expect(dependencies.UsersModel.updateOne).toHaveBeenCalledWith({ _id: id }, { $set: { ...userDTO } })
+      expect(dependencies.UsersModel.findByIdAndUpdate).toHaveBeenCalledWith(id, { ...userDTO }, { new: true })
     })
     test('it should be rejected if invalid id is passed', async () => {
       // Arrange
@@ -127,7 +127,7 @@ describe('USER - uses cases', () => {
       const userDTO = { name: 'Peter', email: 'spider@man.com' }
       const dependencies = {
         UsersModel: {
-          updateOne: jest.fn(() => Promise.resolve(null)),
+          findByIdAndUpdate: jest.fn(() => Promise.resolve(null)),
         },
       }
 
@@ -136,7 +136,7 @@ describe('USER - uses cases', () => {
 
       // Asserts
       await expect(updateUser(id, userDTO)).rejects.toThrow()
-      expect(dependencies.UsersModel.updateOne).not.toHaveBeenCalled()
+      expect(dependencies.UsersModel.findByIdAndUpdate).not.toHaveBeenCalled()
     })
   })
 })
