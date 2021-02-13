@@ -12,18 +12,6 @@ describe('Logger', () => {
       // Asserts
       expect(logger.module).toEqual(module)
     })
-    test('It should have the number of transports passed', () => {
-      // Arrange
-      const module = 'test-module'
-      const transports = ['info', 'error', 'warn']
-      const defaultLengthTransport = 1
-
-      // Act
-      const logger = new Logger(module, ...transports)
-
-      // Asserts
-      expect(logger._logger.transports).toHaveLength(transports.length + defaultLengthTransport)
-    })
     test('It should have the public methods, info, error, debug, warn', () => {
       // Arrange
       const module = 'test-module'
