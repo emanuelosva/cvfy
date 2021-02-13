@@ -36,7 +36,7 @@ const makeFindUserById = ({ UsersModel }) => async (id) => {
   try {
     if (!validators.isMongoId(id)) {
       logger.error('the provided id is invalid')
-      UsersErrors.throw(UsersErrors.types.INVALID_ID)
+      UsersErrors.throw(UsersErrors.types.INVALID_ID, 400)
     }
 
     logger.info(`Searching user by id: ${id}`)

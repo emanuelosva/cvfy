@@ -24,7 +24,7 @@ const makeCreateNewProfile = ({ ProfileFactory, idGenerator }) => async (profile
 
 const makeFindProfileById = ({ ProfileFactory }) => async (id) => {
   try {
-    if (!validators.isMongoId(id)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID)
+    if (!validators.isMongoId(id)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
 
     logger.info(`Searching profile with id: ${id}`)
 
@@ -50,7 +50,7 @@ const makeFindProfileBySlug = ({ ProfileFactory }) => async (slug) => {
 
 const makeUpdateProfile = ({ ProfileFactory }) => async (id, profileUpdateDTO) => {
   try {
-    if (!validators.isMongoId(id)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID)
+    if (!validators.isMongoId(id)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
 
     logger.info(`Updating profile by id: ${id}`)
 
