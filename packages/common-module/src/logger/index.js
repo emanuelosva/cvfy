@@ -6,28 +6,29 @@ class Logger {
    * Return a logger instance with levels:
    * info, debug, warn and error.
    * @param {string} module - eventlly module name
-   * @param  {...string} logFiles - desired log level files.
    */
-  constructor(module, ...logFiles) {
+  constructor(module) {
     this.module = module
     this._logger = winston.createLogger({
       format: format.combine(
         format.timestamp(),
         format.simple(),
       ),
-      transports: logFiles.map((logFile) => new transports.File({
+      transports: ['error'].map((logFile) => new transports.File({
         filename: `${logFile}.log`,
         level: logFile,
       })),
     })
 
-    this._logger.add(new transports.Console({
-      format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ssZ' }),
-        format.colorize(),
-        format.simple(),
-      ),
-    }))
+    if (process.env.NODE_ENV !== 'production') {
+      this._logger.add(new transports.Console({
+        format: format.combine(
+          format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ssZ' }),
+          format.colorize(),
+          format.simple(),
+        ),
+      }))
+    }
   }
 
   info(message, ...args) {

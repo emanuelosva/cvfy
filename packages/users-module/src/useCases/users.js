@@ -15,7 +15,7 @@ const makeCreateUser = ({ UsersModel }) => async (userDTO) => {
     const user = await UsersModel.create(userDTO)
     return user
   } catch (error) {
-    logger.error(error.message)
+    logger.error(`Error on create new user: ${error.message}`)
     return Promise.reject(toBusinessError(error))
   }
 }
@@ -27,7 +27,7 @@ const makeFindUserByEmail = ({ UsersModel }) => async (email) => {
     const user = await UsersModel.findOne({ email })
     return user
   } catch (error) {
-    logger.error(error.message)
+    logger.error(`Error on find user by email: ${error.message}`)
     return Promise.reject(toBusinessError(error))
   }
 }
@@ -44,7 +44,7 @@ const makeFindUserById = ({ UsersModel }) => async (id) => {
     const user = await UsersModel.findById(id)
     return user
   } catch (error) {
-    logger.error(error.message)
+    logger.error(`Error on create find user by id: ${error.message}`)
     return Promise.reject(toBusinessError(error))
   }
 }
@@ -58,15 +58,16 @@ const makeUpdateUser = ({ UsersModel }) => async (id, userUpdateDTO) => {
 
     logger.info(`Updating user for id: ${id}`)
 
-    const user = await UsersModel.updateOne(
-      { _id: id },
-      { $set: { ...userUpdateDTO } },
+    const user = await UsersModel.findByIdAndUpdate(
+      id,
+      { ...userUpdateDTO },
+      { new: true },
     )
     if (user) return user
 
     UsersErrors.throw(UsersErrors.types.USER_NOT_FOUND, 404)
   } catch (error) {
-    logger.error(error.message)
+    logger.error(`Error on update user: ${error.message}`)
     return Promise.reject(toBusinessError(error))
   }
 }
