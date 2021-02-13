@@ -1,4 +1,4 @@
-const logger = require('../logger')
+const logger = require('../../logger')
 const { toBusinessError } = require('@cvfy/common-module')
 
 const makeAddProfileJob = ({ ProfileFactory }) => async (profileId, jobDTO) => {
