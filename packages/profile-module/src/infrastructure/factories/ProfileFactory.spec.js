@@ -40,7 +40,7 @@ describe('ProfileFactory', () => {
       expect(dependencies.ProfileModel.findById).toHaveBeenCalledWith(id)
       expect(dependencies.ProfileModel.populate).toHaveBeenCalledWith('projects')
       expect(dependencies.ProfileModel.populate).toHaveBeenCalledWith('jobs')
-      expect(dependencies.ProfileModel.populate).toHaveBeenCalledWith('education')
+      expect(dependencies.ProfileModel.populate).toHaveBeenCalledWith('educations')
     })
   })
   describe('UpdateProfile', () => {

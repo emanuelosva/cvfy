@@ -22,7 +22,22 @@ class ProfileFactory {
       const profile = await this._profile.findById(id)
         .populate('projects')
         .populate('jobs')
-        .populate('education')
+        .populate('educations')
+
+      return profile
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  }
+
+  async findBySlug(slug, { populate = true } = {}) {
+    try {
+      const query = this._profile.findOne({ slug })
+      if (populate) {
+        query.populate('projects').populate('jobs').populate('educations')
+      }
+
+      const profile = await query.exec()
 
       return profile
     } catch (error) {
