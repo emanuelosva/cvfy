@@ -38,11 +38,6 @@ async function updateOne(request, replay) {
 
 async function makePublic(request, replay) {
   const { user, params: { id } } = request
-  const temporalOwnerValue = request.headers['x-forwarded-for']
-
-  const actualProfile = await profiles.findById(id)
-  if (!actualProfile) ApiError.throw(`profile with id: ${id} not found`, httpStatus.notFound)
-  if (actualProfile.owner !== temporalOwnerValue) ApiError.throw(ApiError.types.FORBIDDEN)
 
   const profile = await profiles.publishProfile({ id, owner: user.id })
   replay.code(httpStatus.ok).send({ profile })
@@ -50,6 +45,12 @@ async function makePublic(request, replay) {
 
 async function updateOwner(request, replay) {
   const { params: { id }, user } = request
+
+  const actualProfile = await profiles.findById(id)
+  if (!actualProfile) ApiError.throw(`profile with id: ${id} not found`, httpStatus.notFound)
+
+  const temporalOwnerValue = request.headers['x-forwarded-for']
+  if (actualProfile.owner !== temporalOwnerValue) ApiError.throw(ApiError.types.FORBIDDEN)
 
   const profile = await profiles.updateOwnerOfProfile({ id, owner: user.id })
   replay.code(httpStatus.ok).send({ profile })
