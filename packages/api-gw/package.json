@@ -16,19 +16,21 @@
     "access": "public"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=development nodemon src/index.js",
     "test": "jest --verbose --jestEnvironment=node"
   },
   "dependencies": {
     "@cvfy/common-module": "1.0.0",
     "@cvfy/mongodb-connection-module": "1.0.0",
-    "@cvfy/users-module": "1.0.0",
     "@cvfy/profile-module": "1.0.0",
+    "@cvfy/users-module": "1.0.0",
+    "bcrypt": "^5.0.0",
     "fastify": "^3.12.0",
     "fastify-cors": "^5.2.0",
     "fastify-helmet": "^5.2.0",
     "fastify-rate-limit": "^5.0.1",
+    "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
