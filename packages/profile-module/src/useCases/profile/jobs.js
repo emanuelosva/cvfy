@@ -30,13 +30,13 @@ const makeUpdateProfileJob = ({ ProfileFactory }) => async (jobId, jobDTO) => {
   }
 }
 
-const makeRemoveProfileJob = ({ ProfileFactory }) => async (profileId, jobId) => {
+const makeRemoveProfileJob = ({ ProfileFactory }) => async (jobId) => {
   try {
-    if (!validators.isMongoId(profileId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+    if (!validators.isMongoId(jobId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
 
     logger.info(`Removing job : ${jobId}`)
 
-    await ProfileFactory.removeRelated({ related: 'jobs', profileId, relatedId: jobId })
+    await ProfileFactory.removeRelated({ related: 'jobs', relatedId: jobId })
   } catch (error) {
     logger.error(`Error on remove job: ${error.message}`)
     return Promise.resolve(toBusinessError(error))

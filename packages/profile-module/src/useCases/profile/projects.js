@@ -30,13 +30,13 @@ const makeUpdateProfileProject = ({ ProfileFactory }) => async (projectId, proje
   }
 }
 
-const makeRemoveProfileProject = ({ ProfileFactory }) => async (profileId, projectId) => {
+const makeRemoveProfileProject = ({ ProfileFactory }) => async (projectId) => {
   try {
     if (!validators.isMongoId(projectId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
 
     logger.info(`Removing project : ${projectId}`)
 
-    await ProfileFactory.removeRelated({ related: 'projects', profileId, relatedId: projectId })
+    await ProfileFactory.removeRelated({ related: 'projects', relatedId: projectId })
   } catch (error) {
     logger.error(`Error on remove project: ${error.message}`)
     return Promise.resolve(toBusinessError(error))

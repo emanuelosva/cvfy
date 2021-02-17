@@ -30,13 +30,13 @@ const makeUpdateProfileEducation = ({ ProfileFactory }) => async (educationId, e
   }
 }
 
-const makeRemoveProfileEducation = ({ ProfileFactory }) => async (profileId, educationId) => {
+const makeRemoveProfileEducation = ({ ProfileFactory }) => async (educationId) => {
   try {
     if (!validators.isMongoId(educationId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
 
     logger.info(`Removing education : ${educationId}`)
 
-    await ProfileFactory.removeRelated({ related: 'educations', profileId, relatedId: educationId })
+    await ProfileFactory.removeRelated({ related: 'educations', relatedId: educationId })
   } catch (error) {
     logger.error(`Error on remove education: ${error.message}`)
     return Promise.resolve(toBusinessError(error))
