@@ -1,13 +1,17 @@
 const { MongoConnection } = require('@cvfy/mongodb-connection-module')
 const { constants: { entities } } = require('@cvfy/common-module')
-const mognoose = require('mongoose')
+const mongoose = require('mongoose')
 
 const profileOwnerTypes = Object.values(entities.profile.ownerTypes)
+const SocialLinkSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true, lower: true },
+  link: { type: String, required: true, trim: true, lower: true },
+})
 
 /**
  * Schema
  */
-const ProfileSchema = new mognoose.Schema({
+const ProfileSchema = new mongoose.Schema({
   slug: { type: String, required: true },
   owner: { type: String, required: true },
   ownerType: { type: String, enum: profileOwnerTypes, default: entities.profile.ownerTypes.PEROSN },
@@ -18,7 +22,7 @@ const ProfileSchema = new mognoose.Schema({
     phoneNumber: { type: String, trim: true },
     optionalLink: { type: String, trim: true },
   },
-  socialLinks: { type: Array, default: [] },
+  socialLinks: { type: [SocialLinkSchema], default: [] },
   jobs: { type: [String], default: [] },
   projects: { type: [String], default: [] },
   educations: { type: [String], default: [] },
