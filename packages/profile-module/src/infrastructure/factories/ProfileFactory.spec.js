@@ -203,33 +203,38 @@ describe('ProfileFactory', () => {
     test('it should call the remove method of related profile member and removes its id from the profile', async () => {
       // Arrange
       const relatedId = '602689d5144408021bbd653a'
-      const job = { id: relatedId, title: 'Some' }
-      const profileId = 'no-exists-id'
+      const profileId = '602689d5145408021bbd653b'
+      const job = { id: relatedId, profile: profileId, title: 'Some', remove: jest.fn() }
       const profile = { id: profileId, jobs: [relatedId], save: jest.fn() }
       const dependencies = {
         ProfileModel: {
           findById: jest.fn(() => Promise.resolve(profile)),
         },
         JobsModel: {
-          findByIdAndRemove: jest.fn(() => Promise.resolve(job)),
+          findById: jest.fn(() => Promise.resolve(job)),
         },
       }
 
       // Act
       const profileFactory = new ProfileFactory(dependencies)
-      await profileFactory.removeRelated({ related: 'jobs', profileId, relatedId })
+      await profileFactory.removeRelated({ related: 'jobs', relatedId })
 
       // Asserts
+      expect(dependencies.JobsModel.findById).toHaveBeenCalledWith(relatedId)
       expect(dependencies.ProfileModel.findById).toHaveBeenCalledWith(profileId)
-      expect(dependencies.JobsModel.findByIdAndRemove).toHaveBeenCalledWith(relatedId)
       expect(profile.jobs).not.toContain(relatedId)
       expect(profile.save).toHaveBeenCalled()
+      expect(job.remove).toHaveBeenCalled()
     })
     test('it should be rejected if the profile does not exists', async () => {
       // Arrange
-      const profileId = 'no-exists-id'
       const relatedId = '602689d5144408021bbd653a'
+      const profileId = '602689d5145408021bbd653b'
+      const education = { id: relatedId, profile: profileId, title: 'Some', remove: jest.fn() }
       const dependencies = {
+        EducationsModel: {
+          findById: jest.fn(() => Promise.resolve(education)),
+        },
         ProfileModel: {
           findById: jest.fn(() => Promise.resolve(null)),
         },
@@ -239,20 +244,16 @@ describe('ProfileFactory', () => {
       const profileFactory = new ProfileFactory(dependencies)
 
       // Asserts
-      await expect(profileFactory.removeRelated({ related: 'educations', profileId, relatedId })).rejects.toThrow()
+      await expect(profileFactory.removeRelated({ related: 'educations', relatedId })).rejects.toThrow()
+      expect(dependencies.EducationsModel.findById).toHaveBeenCalledWith(relatedId)
       expect(dependencies.ProfileModel.findById).toHaveBeenCalledWith(profileId)
     })
     test('it should be rejected if the profile related member does not exists', async () => {
       // Arrange
-      const profileId = 'no-exists-id'
-      const profile = { id: profileId }
       const relatedId = '602689d5144408021bbd653a'
       const dependencies = {
-        ProfileModel: {
-          findById: jest.fn(() => Promise.resolve(profile)),
-        },
         JobsModel: {
-          findByIdAndRemove: jest.fn(() => Promise.resolve(null)),
+          findById: jest.fn(() => Promise.resolve(null)),
         },
       }
 
@@ -260,9 +261,8 @@ describe('ProfileFactory', () => {
       const profileFactory = new ProfileFactory(dependencies)
 
       // Asserts
-      await expect(profileFactory.removeRelated({ related: 'jobs', profileId, relatedId })).rejects.toThrow()
-      expect(dependencies.ProfileModel.findById).toHaveBeenCalledWith(profileId)
-      expect(dependencies.JobsModel.findByIdAndRemove).toHaveBeenCalledWith(relatedId)
+      await expect(profileFactory.removeRelated({ related: 'jobs', relatedId })).rejects.toThrow()
+      expect(dependencies.JobsModel.findById).toHaveBeenCalledWith(relatedId)
     })
   })
 })
