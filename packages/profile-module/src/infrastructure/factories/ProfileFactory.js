@@ -89,19 +89,20 @@ class ProfileFactory {
     }
   }
 
-  async removeRelated({ related, profileId, relatedId }) {
+  async removeRelated({ related, relatedId }) {
     try {
-      const profile = await this._profile.findById(profileId)
-      if (!profile) ProfileErrors.throw(ProfileErrors.types.PROFILE_NOT_EXISTS)
-
-      const relatedEntitie = await this[`_${related}`].findByIdAndRemove(relatedId)
+      const relatedEntitie = await this[`_${related}`].findById(relatedId)
       if (!relatedEntitie) ProfileErrors.throw(ProfileErrors.types.relatedNotExists(related))
+
+      const profile = await this._profile.findById(relatedEntitie.profile)
+      if (!profile) ProfileErrors.throw(ProfileErrors.types.PROFILE_NOT_EXISTS)
 
       const index = profile[related].indexOf(relatedEntitie.id)
       if (index === -1) return null
 
       profile[related].splice(index, 1)
       await profile.save()
+      await relatedEntitie.remove()
     } catch (error) {
       return Promise.reject(error)
     }

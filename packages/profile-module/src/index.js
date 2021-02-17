@@ -23,6 +23,8 @@ module.exports = {
   findById: profileUseCases.makeFindProfileById({ ProfileFactory }),
   findBySlug: profileUseCases.makeFindProfileBySlug({ ProfileFactory }),
   updateOne: profileUseCases.makeUpdateProfile({ ProfileFactory }),
+  publishProfile: profileUseCases.makePublishProfile({ ProfileFactory }),
+  updateOwnerOfProfile: profileUseCases.makeUpdateOwnerOfProfile({ ProfileFactory }),
 
   /** Job methods */
   addJob: profileUseCases.makeAddProfileJob({ ProfileFactory }),

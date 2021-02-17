@@ -11,7 +11,6 @@ const userTypes = Object.values(entities.users.enumTypes)
 const UserSchema = new mongoose.Schema({
   email: { type: String, default: true, trim: true, lower: true },
   name: { type: String, required: true, trim: true, lower: true },
-  lastname: { type: String, required: true, trim: true, lower: true },
   password: { type: String },
   isActive: { type: Boolean, default: true },
   type: { type: String, enum: userTypes, default: entities.users.enumTypes.USER },
@@ -23,10 +22,10 @@ const UserSchema = new mongoose.Schema({
   },
   toJSON: {
     virtuals: true,
+    versionKey: false,
     transform: function(doc, ret) {
       delete ret.password
       delete ret._id
-      delete ret.__v
     },
   },
 })

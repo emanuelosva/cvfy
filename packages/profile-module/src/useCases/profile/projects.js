@@ -1,8 +1,11 @@
 const logger = require('../../logger')
-const { toBusinessError } = require('@cvfy/common-module')
+const { ProfileErrors } = require('../../errors')
+const { toBusinessError, validators } = require('@cvfy/common-module')
 
 const makeAddProfileProject = ({ ProfileFactory }) => async (profileId, projectDTO) => {
   try {
+    if (!validators.isMongoId(profileId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Adding new project to profile: ${profileId}`)
 
     const addedProject = await ProfileFactory.addRelated({ related: 'projects', profileId, relatedDTO: projectDTO })
@@ -15,6 +18,8 @@ const makeAddProfileProject = ({ ProfileFactory }) => async (profileId, projectD
 
 const makeUpdateProfileProject = ({ ProfileFactory }) => async (projectId, projectDTO) => {
   try {
+    if (!validators.isMongoId(projectId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Updating project : ${projectId}`)
 
     const updatedJob = await ProfileFactory.updateRelated({ related: 'projects', relatedId: projectId, relatedDTO: projectDTO })
@@ -25,11 +30,13 @@ const makeUpdateProfileProject = ({ ProfileFactory }) => async (projectId, proje
   }
 }
 
-const makeRemoveProfileProject = ({ ProfileFactory }) => async (profileId, projectId) => {
+const makeRemoveProfileProject = ({ ProfileFactory }) => async (projectId) => {
   try {
+    if (!validators.isMongoId(projectId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Removing project : ${projectId}`)
 
-    await ProfileFactory.removeRelated({ related: 'projects', profileId, relatedId: projectId })
+    await ProfileFactory.removeRelated({ related: 'projects', relatedId: projectId })
   } catch (error) {
     logger.error(`Error on remove project: ${error.message}`)
     return Promise.resolve(toBusinessError(error))

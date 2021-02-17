@@ -1,8 +1,11 @@
 const logger = require('../../logger')
-const { toBusinessError } = require('@cvfy/common-module')
+const { ProfileErrors } = require('../../errors')
+const { toBusinessError, validators } = require('@cvfy/common-module')
 
 const makeAddProfileEducation = ({ ProfileFactory }) => async (profileId, educationDTO) => {
   try {
+    if (!validators.isMongoId(profileId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Adding new education to profile: ${profileId}`)
 
     const addedEducation = await ProfileFactory.addRelated({ related: 'educations', profileId, relatedDTO: educationDTO })
@@ -15,6 +18,8 @@ const makeAddProfileEducation = ({ ProfileFactory }) => async (profileId, educat
 
 const makeUpdateProfileEducation = ({ ProfileFactory }) => async (educationId, educationDTO) => {
   try {
+    if (!validators.isMongoId(educationId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Updating education : ${educationId}`)
 
     const updatedJob = await ProfileFactory.updateRelated({ related: 'educations', relatedId: educationId, relatedDTO: educationDTO })
@@ -25,11 +30,13 @@ const makeUpdateProfileEducation = ({ ProfileFactory }) => async (educationId, e
   }
 }
 
-const makeRemoveProfileEducation = ({ ProfileFactory }) => async (profileId, educationId) => {
+const makeRemoveProfileEducation = ({ ProfileFactory }) => async (educationId) => {
   try {
+    if (!validators.isMongoId(educationId)) ProfileErrors.throw(ProfileErrors.types.INVALID_ID, 400)
+
     logger.info(`Removing education : ${educationId}`)
 
-    await ProfileFactory.removeRelated({ related: 'educations', profileId, relatedId: educationId })
+    await ProfileFactory.removeRelated({ related: 'educations', relatedId: educationId })
   } catch (error) {
     logger.error(`Error on remove education: ${error.message}`)
     return Promise.resolve(toBusinessError(error))

@@ -27,7 +27,7 @@ describe('ProfileUseCases', () => {
       // Asserts
       expect(expectedProfile).toStrictEqual(newProfile)
       expect(dependencies.ProfileFactory.findBySlug).toHaveBeenCalled()
-      expect(dependencies.ProfileFactory.createProfile).toHaveBeenCalledWith({ slug, ...profileDTO })
+      expect(dependencies.ProfileFactory.createProfile).toHaveBeenCalledWith({ slug, ...profileDTO, isPublic: false })
     })
     test('it should return the created profile with id added to slug if slug exists', async () => {
       // Arrange
@@ -51,7 +51,7 @@ describe('ProfileUseCases', () => {
       // Asserts
       expect(expectedProfile).toStrictEqual(newProfile)
       expect(dependencies.ProfileFactory.findBySlug).toHaveBeenCalled()
-      expect(dependencies.ProfileFactory.createProfile).toHaveBeenCalledWith({ slug, ...profileDTO })
+      expect(dependencies.ProfileFactory.createProfile).toHaveBeenCalledWith({ slug, ...profileDTO, isPublic: false })
     })
   })
   describe('FindProfileById', () => {
