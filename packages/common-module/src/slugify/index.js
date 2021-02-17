@@ -19,6 +19,7 @@ const checkIfIsSluglable = (value) => {
 
   try {
     value.toString()
+    return null
   } catch (error) {}
   throw new BusinessError('common-modules', `${valueType} not allowed to slugify`)
 }
