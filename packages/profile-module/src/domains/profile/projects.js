@@ -28,4 +28,4 @@ const ProjectSchema = new mognoose.Schema({
  */
 ProjectSchema.index({ profile: 1 })
 
-module.exports = MongoConnection().model('projects', ProjectSchema)
+module.exports = MongoConnection.model('projects', ProjectSchema)

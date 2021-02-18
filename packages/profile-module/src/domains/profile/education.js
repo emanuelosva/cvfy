@@ -28,4 +28,4 @@ const EducationSchema = new mognoose.Schema({
  */
 EducationSchema.index({ profile: 1 })
 
-module.exports = MongoConnection().model('educations', EducationSchema)
+module.exports = MongoConnection.model('educations', EducationSchema)
