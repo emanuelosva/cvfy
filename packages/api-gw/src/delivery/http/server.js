@@ -37,9 +37,10 @@ app
 /**
  * Routing
  */
-app.register(require('./routes').authRoutes, { prefix: '/api/auth' })
-app.register(require('./routes').userRoutes, { prefix: '/api/users' })
-app.register(require('./routes').profileRoutes, { prefix: '/api/profiles' })
+app
+  .register(require('./routes').authRoutes, { prefix: '/api/auth' })
+  .register(require('./routes').userRoutes, { prefix: '/api/users' })
+  .register(require('./routes').profileRoutes, { prefix: '/api/profiles' })
 
 /**
  * Error handlers

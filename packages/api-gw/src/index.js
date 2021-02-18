@@ -6,6 +6,7 @@ if (require.main) {
   server.listen(config.PORT, (error, address) => {
     if (error) {
       logger.error(error.message)
+      logger.error(error.stack)
       process.exit(1)
     }
 

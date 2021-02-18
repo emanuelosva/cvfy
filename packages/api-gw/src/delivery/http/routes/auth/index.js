@@ -1,7 +1,7 @@
 const authEndpoints = require('./endpoints')
 
-module.exports = function(fastify) {
-  authEndpoints.forEach(route => {
+module.exports = async function(fastify) {
+  authEndpoints.forEach(function(route) {
     fastify.route(route)
   })
 }

@@ -30,7 +30,7 @@ async function isAuthenticated(request, replay) {
   }
 }
 
-async function isRole(...roles) {
+function isRole(...roles) {
   return function(request, replay) {
     const { user } = request
     if (!roles.includes(user.type)) {

@@ -2,7 +2,7 @@ const { httpStatus, logger } = require('../utils')
 
 class ErrorHandler {
   static handleApiError(error) {
-    const isOperational = !error.status || !error.statusCode
+    const isOperational = !error.status
 
     if (!isOperational) return error
 

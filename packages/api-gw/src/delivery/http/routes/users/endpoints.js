@@ -7,36 +7,27 @@ module.exports = [
   {
     method: 'POST',
     url: '/admin',
-    schema: {
-      body: usersValidators.createOne.body,
-    },
+    schema: { ...usersValidators.createOne },
     preValidation: [auth.isAuthenticated, auth.isRole(constants.users.enumTypes.ADMIN)],
     handler: users.createAdminUser,
   },
   {
     method: 'POST',
     url: '/',
-    schema: {
-      body: usersValidators.createOne.body,
-    },
+    schema: { ...usersValidators.createOne },
     handler: users.createUser,
   },
   {
     method: 'GET',
     url: '/:id',
-    schema: {
-      params: usersValidators.findOne.params,
-    },
+    schema: { ...usersValidators.findOne },
     preValidation: [auth.isAuthenticated],
     handler: users.findOneUser,
   },
   {
     method: 'PUT',
     url: '/:id',
-    schema: {
-      params: usersValidators.updateOne.params,
-      body: usersValidators.updateOne.body,
-    },
+    schema: { ...usersValidators.updateOne },
     preValidation: [auth.isAuthenticated],
     handler: users.updateOneUser,
   },

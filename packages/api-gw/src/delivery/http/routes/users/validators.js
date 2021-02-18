@@ -5,7 +5,7 @@ const createOne = {
   body: Joi.object({
     email: Joi.string().email().max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
     name: Joi.string().min(1).max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
-    password: Joi.string().regex(inputs.PASSWORD_REGEX).required(),
+    password: Joi.string().regex(inputs.PASSWORD_REGEX).message('').required(),
   }),
 }
 
