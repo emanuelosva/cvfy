@@ -3,6 +3,9 @@ const { constants: { entities } } = require('@cvfy/common-module')
 const mongoose = require('mongoose')
 
 const profileOwnerTypes = Object.values(entities.profile.ownerTypes)
+
+const profileTemplateTypes = Object.values(entities.profile.templateNames)
+
 const SocialLinkSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true, lower: true },
   link: { type: String, required: true, trim: true, lower: true },
@@ -15,6 +18,7 @@ const ProfileSchema = new mongoose.Schema({
   slug: { type: String, required: true },
   owner: { type: String, required: true },
   ownerType: { type: String, enum: profileOwnerTypes, default: entities.profile.ownerTypes.PEROSN },
+  template: { type: String, enum: profileTemplateTypes, required: true },
   fullName: { type: String, required: true, trim: true },
   description: { type: String },
   contact: {

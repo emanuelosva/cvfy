@@ -15,6 +15,11 @@ module.exports = {
       ownerTypes: {
         PEROSN: 'person',
       },
+      templateNames: {
+        CLASSIC: 'classic',
+        MINIMAL: 'minimal',
+        MODERN: 'modern',
+      },
     },
   },
   enviroment: {

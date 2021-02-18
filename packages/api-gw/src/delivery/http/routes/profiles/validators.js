@@ -1,5 +1,5 @@
 const Joi = require('joi')
-const { constants: { inputs } } = require('../../../../utils')
+const { constants: { inputs, profiles } } = require('../../../../utils')
 
 const idInParamsValidator = {
   params: {
@@ -16,6 +16,7 @@ const slugInParamsValidator = {
 const updateProfile = {
   ...idInParamsValidator,
   body: Joi.object({
+    template: Joi.string().valid(Object.values(profiles.templateNames)),
     fullName: Joi.string().min(2).max(inputs.MAX_GENERAL_STRING_LENGTH),
     description: Joi.string().max(500),
     contact: Joi.object({
@@ -38,6 +39,7 @@ const updateProfile = {
 const createProfile = {
   body: {
     ...updateProfile.body,
+    template: Joi.string().valid(Object.values(profiles.templateNames)).required(),
     owner: Joi.string().max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
     fullName: Joi.string().min(2).max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
   },
