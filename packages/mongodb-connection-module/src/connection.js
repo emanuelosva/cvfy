@@ -11,11 +11,12 @@ const createMongooseConnection = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    poolSize: 6,
-    auth: {
-      user: config.MONGO_USER,
-      password: config.MONGO_PASSWORD,
-    },
+    poolSize: 8,
+    /** @TODO configure db auth */
+    // auth: {
+    //   user: config.MONGO_USER,
+    //   password: config.MONGO_PASSWORD,
+    // },
   })
 
   handleConnectionEvents(MongoConnection)
