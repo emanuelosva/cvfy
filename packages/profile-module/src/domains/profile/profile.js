@@ -52,4 +52,4 @@ ProfileSchema.index({ owner: 1, type: 1 })
 ProfileSchema.index({ slug: 1 })
 ProfileSchema.index({ slug: 1, type: 1 })
 
-module.exports = MongoConnection().model('profiles', ProfileSchema)
+module.exports = MongoConnection.model('profiles', ProfileSchema)

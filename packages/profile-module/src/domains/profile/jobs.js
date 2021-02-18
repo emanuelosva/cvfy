@@ -28,4 +28,4 @@ const JobSchema = new mognoose.Schema({
  */
 JobSchema.index({ profile: 1 })
 
-module.exports = MongoConnection().model('jobs', JobSchema)
+module.exports = MongoConnection.model('jobs', JobSchema)

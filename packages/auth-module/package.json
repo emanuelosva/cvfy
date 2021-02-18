@@ -1,0 +1,37 @@
+{
+  "name": "@cvfy/auth-module",
+  "version": "1.0.0",
+  "description": "This module provide authentication method trhough refresk and jwt tokens",
+  "keywords": [],
+  "author": "emanuelosva <emanuelosva@gmail.com>",
+  "license": "ISC",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emanuelosva/cvfy.git"
+  },
+  "scripts": {
+    "test": "jest --verbose --testEnvironment=node"
+  },
+  "bugs": {
+    "url": "https://github.com/emanuelosva/cvfy/issues"
+  },
+  "homepage": "https://github.com/emanuelosva/cvfy#readme",
+  "dependencies": {
+    "@cvfy/common-module": "1.0.0",
+    "@cvfy/mongodb-connection-module": "1.0.0",
+    "@cvfy/users-module": "1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.17",
+    "rand-token": "^1.0.1"
+  }
+}

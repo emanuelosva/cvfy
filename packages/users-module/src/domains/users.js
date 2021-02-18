@@ -53,4 +53,5 @@ UserSchema.pre('save', async function(next) {
   }
 })
 
-module.exports = MongoConnection().model('users', UserSchema)
+// module.exports = MongoConnection().model('users', UserSchema)
+module.exports = MongoConnection.model('users', UserSchema)
