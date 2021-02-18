@@ -1,9 +1,8 @@
 const { UsersModel } = require('./domains')
-const { userUseCases } = require('./useCases')
+const { makeUserUseCases } = require('./useCases')
+const { UsersErrors } = require('./errors')
 
 module.exports = {
-  createOneUser: userUseCases.makeCreateUser({ UsersModel }),
-  findByEmail: userUseCases.makeFindUserByEmail({ UsersModel }),
-  findById: userUseCases.makeFindUserById({ UsersModel }),
-  updateOne: userUseCases.makeUpdateUser({ UsersModel }),
+  userService: makeUserUseCases({ UsersModel }),
+  UsersErrors,
 }

@@ -1,9 +1,4 @@
-const {
-  makeCreateUser,
-  makeFindUserByEmail,
-  makeFindUserById,
-  makeUpdateUser,
-} = require('./users')
+const makeUserService = require('./users')
 
 describe('USER - uses cases', () => {
   describe('CreateUser', () => {
@@ -19,8 +14,8 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const createUser = makeCreateUser(dependencies)
-      const expectedUser = await createUser(user)
+      const usersService = makeUserService(dependencies)
+      const expectedUser = await usersService.createOne(user)
 
       // Asserts
       expect(expectedUser).toStrictEqual(newUser)
@@ -38,10 +33,10 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const createUser = makeCreateUser(dependencies)
+      const usersService = makeUserService(dependencies)
 
       // Asserts
-      await expect(createUser(user)).rejects.toThrow()
+      await expect(usersService.createOne(user)).rejects.toThrow()
       expect(dependencies.UsersModel.findOne).toHaveBeenCalledWith({ email: user.email })
       expect(dependencies.UsersModel.create).not.toHaveBeenCalled()
     })
@@ -57,8 +52,8 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const findUserByEmail = makeFindUserByEmail(dependencies)
-      const expectedUser = await findUserByEmail(user.email)
+      const usersService = makeUserService(dependencies)
+      const expectedUser = await usersService.findByEmail(user.email)
 
       // Asserts
       expect(expectedUser).toStrictEqual(user)
@@ -76,8 +71,8 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const findUserId = makeFindUserById(dependencies)
-      const expectedUser = await findUserId(user.id)
+      const usersService = makeUserService(dependencies)
+      const expectedUser = await usersService.findById(user.id)
 
       // Asserts
       expect(expectedUser).toStrictEqual(user)
@@ -97,8 +92,8 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const updateUser = makeUpdateUser(dependencies)
-      const expectedUser = await updateUser(id, userDTO)
+      const usersService = makeUserService(dependencies)
+      const expectedUser = await usersService.updateOne(id, userDTO)
 
       // Asserts
       expect(expectedUser).toStrictEqual(updatedUser)
@@ -115,10 +110,10 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const updateUser = makeUpdateUser(dependencies)
+      const usersService = makeUserService(dependencies)
 
       // Asserts
-      await expect(updateUser(id, userDTO)).rejects.toThrow()
+      await expect(usersService.updateOne(id, userDTO)).rejects.toThrow()
       expect(dependencies.UsersModel.findByIdAndUpdate).toHaveBeenCalledWith(id, { ...userDTO }, { new: true })
     })
     test('it should be rejected if invalid id is passed', async () => {
@@ -132,10 +127,10 @@ describe('USER - uses cases', () => {
       }
 
       // Act
-      const updateUser = makeUpdateUser(dependencies)
+      const usersService = makeUserService(dependencies)
 
       // Asserts
-      await expect(updateUser(id, userDTO)).rejects.toThrow()
+      await expect(usersService.updateOne(id, userDTO)).rejects.toThrow()
       expect(dependencies.UsersModel.findByIdAndUpdate).not.toHaveBeenCalled()
     })
   })

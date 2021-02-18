@@ -1,1 +1,1 @@
-module.exports.userUseCases = require('./users')
+module.exports.makeUserUseCases = require('./users')
