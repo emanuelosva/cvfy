@@ -16,7 +16,19 @@ const signup = {
   }),
 }
 
+const newToken = {
+  body: Joi.object({
+    refreshToken: Joi.string().max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
+  }),
+}
+
+const invalidateToken = {
+  ...newToken,
+}
+
 module.exports = {
   login,
   signup,
+  newToken,
+  invalidateToken,
 }

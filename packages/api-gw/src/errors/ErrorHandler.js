@@ -2,9 +2,8 @@ const { httpStatus, logger } = require('../utils')
 
 class ErrorHandler {
   static handleApiError(error) {
-    const isOperational = !error.status
-
-    if (!isOperational) return error
+    const isClientError = !!error.status
+    if (isClientError) return error
 
     error.status = httpStatus.serverError
     logger.error('Opeartional error ocurrend. Stack:')
@@ -17,6 +16,7 @@ class ErrorHandler {
 
   static handleFatalError(error) {
     logger.error(`Fatal error ocurred: ${error.message}`)
+    logger.error(error.stack)
     process.exit(1)
   }
 }

@@ -1,5 +1,6 @@
-const users = require('@cvfy/users-module')
-const { JWT, httpStatus } = require('../../../utils')
+const { userService } = require('@cvfy/users-module')
+const { authServices, AuthErrors } = require('@cvfy/auth-module')
+const { httpStatus } = require('../../../utils')
 const { ApiError } = require('../../../errors')
 
 const getTokenFromHeaders = (headers) => {
@@ -20,12 +21,13 @@ async function isAuthenticated(request, replay) {
   try {
     const token = getTokenFromHeaders(request.headers)
 
-    const { email } = await JWT.decode(token)
-    const user = await users.findByEmail(email)
+    const { owner } = await authServices.verifyToken(token)
+    const user = await userService.findById(owner)
     if (!user) throw new Error('')
 
     request.user = { id: user.id, type: user.type }
   } catch (error) {
+    if (error.message === AuthErrors.types.TOKEN_EXPIRED) throw error
     ApiError.throw(ApiError.types.UNAUTHORIZED, httpStatus.unauthorized)
   }
 }

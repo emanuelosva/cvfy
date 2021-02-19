@@ -1,4 +1,4 @@
-const profiles = require('@cvfy/profile-module')
+const { profilesService } = require('@cvfy/profile-module')
 const { ApiError } = require('../errors')
 const { httpStatus } = require('../utils')
 
@@ -7,14 +7,14 @@ async function createOneProfile(request, replay) {
   const temporalOwnerValue = request.headers['x-forwarded-for']
 
   const owner = user?.id ? user.id : temporalOwnerValue
-  const profile = await profiles.createOneProfile({ ...profileDTO, owner })
+  const profile = await profilesService.createOne({ ...profileDTO, owner })
   replay.code(httpStatus.created).send({ profile })
 }
 
 async function findOneById(request, replay) {
   const { params: { id } } = request
 
-  const profile = await profiles.findById(id)
+  const profile = await profilesService.findById(id)
   if (!profile) ApiError.throw(`profile with id: ${id} not found`, httpStatus.notFound)
 
   replay.code(httpStatus.ok).send({ profile })
@@ -23,7 +23,7 @@ async function findOneById(request, replay) {
 async function findOneBySlug(request, replay) {
   const { params: { slug } } = request
 
-  const profile = await profiles.findBySlug(slug)
+  const profile = await profilesService.findBySlug(slug)
   if (!profile) ApiError.throw(`profile with slug: ${slug} not found`, httpStatus.notFound)
 
   replay.code(httpStatus.ok).send({ profile })
@@ -32,90 +32,90 @@ async function findOneBySlug(request, replay) {
 async function updateOne(request, replay) {
   const { params: { id }, body: profileDTO } = request
 
-  const profile = await profiles.updateOne(id, profileDTO)
+  const profile = await profilesService.updateOne(id, profileDTO)
   replay.code(httpStatus.ok).send({ profile })
 }
 
 async function makePublic(request, replay) {
   const { user, params: { id } } = request
 
-  const profile = await profiles.publishProfile({ id, owner: user.id })
+  const profile = await profilesService.makePublic({ id, owner: user.id })
   replay.code(httpStatus.ok).send({ profile })
 }
 
 async function updateOwner(request, replay) {
   const { params: { id }, user } = request
 
-  const actualProfile = await profiles.findById(id)
+  const actualProfile = await profilesService.findById(id)
   if (!actualProfile) ApiError.throw(`profile with id: ${id} not found`, httpStatus.notFound)
 
   const temporalOwnerValue = request.headers['x-forwarded-for']
   if (actualProfile.owner !== temporalOwnerValue) ApiError.throw(ApiError.types.FORBIDDEN)
 
-  const profile = await profiles.updateOwnerOfProfile({ id, owner: user.id })
+  const profile = await profilesService.updateOwner({ id, owner: user.id })
   replay.code(httpStatus.ok).send({ profile })
 }
 
 async function addJobToProfile(request, replay) {
   const { body: { profileId, job: jobDTO } } = request
 
-  const job = await profiles.addJob(profileId, jobDTO)
+  const job = await profilesService.jobs().addOneToProfile(profileId, jobDTO)
   replay.code(httpStatus.created).send({ job })
 }
 
 async function updateJobProfile(request, replay) {
   const { params: { id }, body: jobDTO } = request
 
-  const job = await profiles.updateJob(id, jobDTO)
+  const job = await profilesService.jobs().updateOne(id, jobDTO)
   replay.code(httpStatus.ok).send({ job })
 }
 
 async function removeJob(request, replay) {
   const { params: { id } } = request
 
-  await profiles.removeJob(id)
+  await profilesService.jobs().removeOne(id)
   replay.code(httpStatus.noContent).send({})
 }
 
 async function addProjectToProfile(request, replay) {
   const { body: { profileId, project: projectDTO } } = request
 
-  const project = await profiles.addProject(profileId, projectDTO)
+  const project = await profilesService.projects().addOneToProfile(profileId, projectDTO)
   replay.code(httpStatus.created).send({ project })
 }
 
 async function updateProjectProfile(request, replay) {
   const { params: { id }, body: projectDTO } = request
 
-  const project = await profiles.updateProject(id, projectDTO)
+  const project = await profilesService.projects().updateOne(id, projectDTO)
   replay.code(httpStatus.ok).send({ project })
 }
 
 async function removeProject(request, replay) {
   const { params: { id } } = request
 
-  await profiles.removeProject(id)
+  await profilesService.jobs().removeOne(id)
   replay.code(httpStatus.noContent).send({})
 }
 
 async function addEducationToProfile(request, replay) {
   const { body: { profileId, education: educationDTO } } = request
 
-  const education = await profiles.addEducation(profileId, educationDTO)
+  const education = await profilesService.educations().addOneToProfile(profileId, educationDTO)
   replay.code(httpStatus.created).send({ education })
 }
 
 async function updateEducationProfile(request, replay) {
   const { params: { id }, body: educationDTO } = request
 
-  const education = await profiles.updateEducation(id, educationDTO)
+  const education = await profilesService.educations().updateOne(id, educationDTO)
   replay.code(httpStatus.ok).send({ education })
 }
 
 async function removeEducation(request, replay) {
   const { params: { id } } = request
 
-  await profiles.removeEducation(id)
+  await profilesService.educations().removeOne(id)
   replay.code(httpStatus.noContent).send({})
 }
 

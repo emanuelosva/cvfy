@@ -1,9 +1,4 @@
-const {
-  makeCreateNewProfile,
-  makeFindProfileById,
-  makeFindProfileBySlug,
-  makeUpdateProfile,
-} = require('./profile')
+const makeProfilesService = require('./profile')
 
 describe('ProfileUseCases', () => {
   describe('CreateNewProfile', () => {
@@ -21,8 +16,8 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const createNewProfile = makeCreateNewProfile(dependencies)
-      const expectedProfile = await createNewProfile(profileDTO)
+      const profilesService = makeProfilesService(dependencies)
+      const expectedProfile = await profilesService.createOne(profileDTO)
 
       // Asserts
       expect(expectedProfile).toStrictEqual(newProfile)
@@ -45,8 +40,8 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const createNewProfile = makeCreateNewProfile(dependencies)
-      const expectedProfile = await createNewProfile(profileDTO)
+      const profilesService = makeProfilesService(dependencies)
+      const expectedProfile = await profilesService.createOne(profileDTO)
 
       // Asserts
       expect(expectedProfile).toStrictEqual(newProfile)
@@ -66,8 +61,8 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const findProfileById = makeFindProfileById(dependencies)
-      const expectedProfile = await findProfileById(id)
+      const profilesService = makeProfilesService(dependencies)
+      const expectedProfile = await profilesService.findById(id)
 
       // Asserts
       expect(expectedProfile).toStrictEqual(profile)
@@ -84,10 +79,10 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const findProfileById = makeFindProfileById(dependencies)
+      const profilesService = makeProfilesService(dependencies)
 
       // Asserts
-      await expect(findProfileById(id)).rejects.toThrow()
+      await expect(profilesService.findById(id)).rejects.toThrow()
       expect(dependencies.ProfileFactory.findById).not.toHaveBeenCalled()
     })
   })
@@ -103,8 +98,8 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const findProfileBySlug = makeFindProfileBySlug(dependencies)
-      const expectedProfile = await findProfileBySlug(slug)
+      const profilesService = makeProfilesService(dependencies)
+      const expectedProfile = await profilesService.findBySlug(slug)
 
       // Asserts
       expect(expectedProfile).toStrictEqual(profile)
@@ -124,8 +119,8 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const updateProfile = makeUpdateProfile(dependencies)
-      const expectedProfile = await updateProfile(id, updateDTO)
+      const profilesService = makeProfilesService(dependencies)
+      const expectedProfile = await profilesService.updateOne(id, updateDTO)
 
       // Asserts
       expect(expectedProfile).toStrictEqual(profile)
@@ -142,10 +137,10 @@ describe('ProfileUseCases', () => {
       }
 
       // Act
-      const updateProfile = makeUpdateProfile(dependencies)
+      const profilesService = makeProfilesService(dependencies)
 
       // Asserts
-      await expect(updateProfile(id, updateDTO)).rejects.toThrow()
+      await expect(profilesService.updateOne(id, updateDTO)).rejects.toThrow()
       expect(dependencies.ProfileFactory.updateProfile).toHaveBeenCalledWith(id, updateDTO)
     })
   })

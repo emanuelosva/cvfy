@@ -1,11 +1,11 @@
-const profileUseCases = require('./profile')
-const jobsUseCases = require('./jobs')
-const projectsUseCases = require('./projects')
-const educationsUseCases = require('./educations')
+const makeProfilesUseCases = require('./profile')
+const makeJobsUseCases = require('./jobs')
+const makeProjectsUseCases = require('./projects')
+const makeEducationsUseCases = require('./educations')
 
 module.exports = {
-  ...profileUseCases,
-  ...jobsUseCases,
-  ...projectsUseCases,
-  ...educationsUseCases,
+  makeProfilesUseCases,
+  makeJobsUseCases,
+  makeProjectsUseCases,
+  makeEducationsUseCases,
 }

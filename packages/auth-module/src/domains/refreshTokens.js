@@ -7,7 +7,7 @@ const randToken = require('rand-token')
  */
 const RefreshTokenSchema = new mongoose.Schema({
   owner: { type: String, required: true },
-  refreshToken: { type: String, required: true },
+  refreshToken: { type: String },
   scope: { type: String, required: true },
   isValid: { type: Boolean, default: true },
 }, {
@@ -34,7 +34,7 @@ RefreshTokenSchema.index({ refreshToken: 1 })
 RefreshTokenSchema.pre('save', function(next) {
   try {
     if (!this.refreshToken) {
-      this.refreshToken = randToken.uid(32)
+      this.refreshToken = randToken.uid(64)
     }
     next()
   } catch (error) {

@@ -28,7 +28,7 @@ const makeAuthServices = ({ RefreshTokenModel, JWT }) => {
       logger.info(`Creating new refreshToken for: ${owner}`)
 
       const refreshToken = await RefreshTokenModel.create({ owner, scope })
-      return refreshToken
+      return refreshToken.refreshToken
     } catch (error) {
       logger.error(`Error on create new refreshToken: ${error.message}`)
       return Promise.reject(toBusinessError(error))

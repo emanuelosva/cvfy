@@ -14,4 +14,21 @@ module.exports = [
     schema: { ...authValidators.signup },
     handler: auth.signup,
   },
+  {
+    method: 'POST',
+    url: '/new-token',
+    schema: { ...authValidators.newToken },
+    handler: auth.refreshAccessToken,
+  },
+  {
+    method: 'POST',
+    url: '/invalidate-token',
+    schema: { ...authValidators.invalidateToken },
+    handler: auth.invalidateRefreshToken,
+  },
+  {
+    method: 'POST',
+    url: '/clear-all-tokens',
+    handler: auth.clearAllTokens,
+  },
 ]
