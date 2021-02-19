@@ -1,32 +1,59 @@
-const users = require('@cvfy/users-module')
 const bcrypt = require('bcrypt')
+const { userService } = require('@cvfy/users-module')
+const { authServices } = require('@cvfy/auth-module')
 const { ApiError } = require('../errors')
-const { JWT, constants, httpStatus } = require('../utils')
+const { constants, httpStatus } = require('../utils')
 
 async function login(request, replay) {
   const { body: { email, password } } = request
 
-  const user = await users.findByEmail(email)
+  const user = await userService.findByEmail(email)
   const userPassword = user && user.password
 
   const canLogIn = await bcrypt.compare(password, userPassword)
   if (!canLogIn) ApiError.throw(ApiError.types.UNAUTHORIZED, 401)
 
-  const token = await JWT.sign({ email, types: user.type })
+  const accessToken = await authServices.createAccessToken({ owner: user.id, scope: user.type })
+  const refreshToken = await authServices.createRefreshToken({ owner: user.id, scope: user.type })
 
-  replay.code(httpStatus.ok).send({ token, user })
+  replay.code(httpStatus.ok).send({ refreshToken, accessToken, user })
 }
 
-async function signup(reques, replay) {
-  const { body: userDTO } = reques
+async function signup(request, replay) {
+  const { body: userDTO } = request
 
-  const user = await users.createOneUser({ ...userDTO, type: constants.users.enumTypes.USER })
-  const token = await JWT.sign({ email: user.email, type: user.type })
+  const user = await userService.createOne({ ...userDTO, type: constants.users.enumTypes.USER })
+  const accessToken = await authServices.createAccessToken({ owner: user.id, scope: user.type })
+  const refreshToken = await authServices.createRefreshToken({ owner: user.id, scope: user.type })
 
-  replay.code(httpStatus.created).send({ token, user })
+  replay.code(httpStatus.created).send({ refreshToken, accessToken, user })
+}
+
+async function refreshAccessToken(request, replay) {
+  const { body: { refreshToken } } = request
+
+  const accessToken = await authServices.getNewToken({ refreshToken })
+  replay.code(httpStatus.ok).send({ accessToken })
+}
+
+async function invalidateRefreshToken(request, replay) {
+  const { body: { refreshToken } } = request
+
+  await authServices.invalidateRefreshToken({ refreshToken })
+  replay.code(httpStatus.noContent).send({})
+}
+
+async function clearAllTokens(request, replay) {
+  const { user } = request
+
+  await authServices.clearAllTokensFor({ owner: user.id })
+  replay.code(httpStatus.noContent).send({})
 }
 
 module.exports = {
   login,
   signup,
+  refreshAccessToken,
+  invalidateRefreshToken,
+  clearAllTokens,
 }
