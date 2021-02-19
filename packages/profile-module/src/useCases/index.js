@@ -1,1 +1,1 @@
-module.exports.profileUseCases = require('./profile')
+module.exports.makeProfileServices = require('./profile')
