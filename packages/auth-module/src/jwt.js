@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 const config = require('./config')
 const { AuthErrors } = require('./errors')
 
-const JWT = () => {
-  const sign = (payload, expiresIn = '2 hours') => {
+class JWT {
+  static sign(payload, expiresIn = '2 hours') {
     return new Promise((resolve) => {
       const token = jwt.sign(payload, config.SECRET, {
         expiresIn,
@@ -13,7 +13,7 @@ const JWT = () => {
     })
   }
 
-  const verifyAndGetPayload = (token) => {
+  static verifyAndGetPayload(token) {
     return new Promise((resolve, reject) => {
       try {
         const payload = jwt.verify(token, config.SECRET, {
@@ -31,11 +31,6 @@ const JWT = () => {
         return reject(error)
       }
     })
-  }
-
-  return {
-    sign,
-    verifyAndGetPayload,
   }
 }
 
