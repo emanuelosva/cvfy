@@ -15,6 +15,7 @@ module.exports = [
     method: 'POST',
     url: '/',
     schema: { ...usersValidators.createOne },
+    preValidation: [auth.isAuthenticated, auth.isRole(constants.users.enumTypes.ADMIN)],
     handler: users.createUser,
   },
   {

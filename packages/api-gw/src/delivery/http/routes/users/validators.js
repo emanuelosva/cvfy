@@ -10,15 +10,15 @@ const createOne = {
 }
 
 const findOne = {
-  params: {
+  params: Joi.object({
     id: Joi.string().regex(inputs.MONGO_ID_REGEX).message('invalid id').required(),
-  },
+  }),
 }
 
 const updateOne = {
-  params: {
+  params: Joi.object({
     id: Joi.string().regex(inputs.MONGO_ID_REGEX).message('invalid id').required(),
-  },
+  }),
   body: Joi.object({
     email: Joi.string().email().max(inputs.MAX_GENERAL_STRING_LENGTH),
     name: Joi.string().min(1).max(inputs.MAX_GENERAL_STRING_LENGTH),
