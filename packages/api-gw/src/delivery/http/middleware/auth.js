@@ -5,7 +5,7 @@ const { ApiError } = require('../../../errors')
 
 const getTokenFromHeaders = (headers) => {
   const authroization = headers.authorization
-  if (authroization) ApiError.throw(ApiError.types.UNAUTHORIZED, httpStatus.unauthorized)
+  if (!authroization) ApiError.throw(ApiError.types.UNAUTHORIZED, httpStatus.unauthorized)
 
   let token
   try {
