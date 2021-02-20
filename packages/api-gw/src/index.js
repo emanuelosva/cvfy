@@ -1,6 +1,7 @@
 const server = require('./delivery/http/server')
 const config = require('./config')
 const { logger } = require('./utils')
+const { errorHandler } = require('./errors')
 
 if (require.main) {
   server.listen(config.PORT, (error, address) => {
@@ -12,6 +13,9 @@ if (require.main) {
 
     logger.info(`🚀 Server listen on: ${address}`)
   })
+
+  process.on('unhandledRejection', errorHandler.handleFatalError)
+  process.on('uncaughtException', errorHandler.handleFatalError)
 }
 
 module.exports = server
