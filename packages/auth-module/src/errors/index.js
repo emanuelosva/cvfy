@@ -8,7 +8,7 @@ const AuthErrors = {
   types: {
     INVALID_REFRESH_TOKEN: 'invalid refresh token',
     TOKEN_INVALID: 'user not found',
-    TOKEN_EXPIRED: 'invalid id provided',
+    TOKEN_EXPIRED: 'token has expired',
   },
 }
 

@@ -23,7 +23,7 @@ class JWT {
       } catch (error) {
         try {
           if (error instanceof jwt.TokenExpiredError) {
-            AuthErrors.throw(AuthErrors.types.TOKEN_EXPIRED)
+            AuthErrors.throw(AuthErrors.types.TOKEN_EXPIRED, 403)
           }
         } catch (error) {
           return reject(error)
