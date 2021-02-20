@@ -40,14 +40,14 @@ async function invalidateRefreshToken(request, replay) {
   const { body: { refreshToken } } = request
 
   await authServices.invalidateRefreshToken({ refreshToken })
-  replay.code(httpStatus.noContent).send({})
+  replay.code(httpStatus.ok).send({ success: true })
 }
 
 async function clearAllTokens(request, replay) {
   const { user } = request
 
   await authServices.clearAllTokensFor({ owner: user.id })
-  replay.code(httpStatus.noContent).send({})
+  replay.code(httpStatus.ok).send({ success: true })
 }
 
 module.exports = {
