@@ -1,5 +1,6 @@
 const { auth } = require('../../../../adapters')
 const authValidators = require('./validators')
+const { auth: authMiddleware } = require('../../middleware')
 
 module.exports = [
   {
@@ -29,6 +30,7 @@ module.exports = [
   {
     method: 'POST',
     url: '/clear-all-tokens',
+    preValidation: [authMiddleware.isAuthenticated],
     handler: auth.clearAllTokens,
   },
 ]
