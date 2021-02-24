@@ -74,7 +74,7 @@ async function removeJob(request, replay) {
   const { params: { id } } = request
 
   await profilesService.jobs().removeOne(id)
-  replay.code(httpStatus.noContent).send({})
+  replay.code(httpStatus.ok).send({ success: true })
 }
 
 async function addProjectToProfile(request, replay) {
@@ -94,8 +94,8 @@ async function updateProjectProfile(request, replay) {
 async function removeProject(request, replay) {
   const { params: { id } } = request
 
-  await profilesService.jobs().removeOne(id)
-  replay.code(httpStatus.noContent).send({})
+  await profilesService.projects().removeOne(id)
+  replay.code(httpStatus.ok).send({ success: true })
 }
 
 async function addEducationToProfile(request, replay) {
@@ -116,7 +116,7 @@ async function removeEducation(request, replay) {
   const { params: { id } } = request
 
   await profilesService.educations().removeOne(id)
-  replay.code(httpStatus.noContent).send({})
+  replay.code(httpStatus.ok).send({ success: true })
 }
 
 module.exports = {
