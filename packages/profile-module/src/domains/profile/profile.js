@@ -9,6 +9,8 @@ const profileTemplateTypes = Object.values(entities.profile.templateNames)
 const SocialLinkSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true, lower: true },
   link: { type: String, required: true, trim: true, lower: true },
+}, {
+  _id: false,
 })
 
 /**
@@ -22,14 +24,14 @@ const ProfileSchema = new mongoose.Schema({
   fullName: { type: String, required: true, trim: true },
   description: { type: String },
   contact: {
-    email: { type: String, trim: true, lower: true },
-    phoneNumber: { type: String, trim: true },
-    optionalLink: { type: String, trim: true },
+    email: { type: String, trim: true, lower: true, default: '' },
+    phoneNumber: { type: String, trim: true, default: '' },
+    optionalLink: { type: String, trim: true, default: '' },
   },
   socialLinks: { type: [SocialLinkSchema], default: [] },
-  jobs: { type: [String], default: [] },
-  projects: { type: [String], default: [] },
-  educations: { type: [String], default: [] },
+  projects: { type: [{ type: String, ref: 'projects' }], default: [] },
+  jobs: { type: [{ type: String, ref: 'jobs' }], default: [] },
+  educations: { type: [{ type: String, ref: 'educations' }], default: [] },
   skills: { type: [String], default: [] },
   isPublic: { type: Boolean, default: false },
 }, {
@@ -48,7 +50,7 @@ const ProfileSchema = new mongoose.Schema({
 })
 
 /**
- * Indexes
+ * Index
  */
 ProfileSchema.index({ owner: 1 })
 ProfileSchema.index({ owner: 1, type: 1 })

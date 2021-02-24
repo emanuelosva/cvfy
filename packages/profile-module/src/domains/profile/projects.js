@@ -5,6 +5,7 @@ const mognoose = require('mongoose')
  * Schema
  */
 const ProjectSchema = new mognoose.Schema({
+  profile: { type: String, required: true },
   title: { type: String, required: true },
   position: { type: String, required: true, trim: true },
   description: { type: String, default: '' },
