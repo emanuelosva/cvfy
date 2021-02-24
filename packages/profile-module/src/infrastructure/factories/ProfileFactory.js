@@ -30,9 +30,9 @@ class ProfileFactory {
     }
   }
 
-  async findBySlug(slug, { populate = true } = {}) {
+  async findBySlug(slug, { populate = true, addActive = true } = {}) {
     try {
-      const query = this._profile.findOne({ slug })
+      const query = this._profile.findOne({ slug, ...(addActive && { active: true }) })
       if (populate) {
         query.populate('projects').populate('jobs').populate('educations')
       }
@@ -63,10 +63,9 @@ class ProfileFactory {
       const profile = await this._profile.findById(profileId)
       if (!profile) ProfileErrors.throw(ProfileErrors.types.PROFILE_NOT_EXISTS)
 
-      const relatedEntitie = await this[`_${related}`].create(relatedDTO)
+      const relatedEntitie = await this[`_${related}`].create({ ...relatedDTO, profile: profileId })
 
-      profile[related].push(relatedEntitie.id)
-      await profile.save()
+      await this._profile.updateOne({ _id: profileId }, { $addToSet: { [related]: relatedEntitie.id } })
 
       return relatedEntitie
     } catch (error) {
@@ -81,7 +80,7 @@ class ProfileFactory {
         { ...relatedDTO },
         { new: true },
       )
-      if (!relatedEntitie) ProfileErrors.throw(ProfileErrors.types.relatedNotExists(related))
+      if (!relatedEntitie) ProfileErrors.throw(ProfileErrors.types.relatedNotExists(related), 404)
 
       return relatedEntitie
     } catch (error) {
@@ -91,18 +90,10 @@ class ProfileFactory {
 
   async removeRelated({ related, relatedId }) {
     try {
-      const relatedEntitie = await this[`_${related}`].findById(relatedId)
-      if (!relatedEntitie) ProfileErrors.throw(ProfileErrors.types.relatedNotExists(related))
+      const relatedEntitie = await this[`_${related}`].findOneAndDelete({ _id: relatedId })
+      if (!relatedEntitie) ProfileErrors.throw(ProfileErrors.types.relatedNotExists(related), 404)
 
-      const profile = await this._profile.findById(relatedEntitie.profile)
-      if (!profile) ProfileErrors.throw(ProfileErrors.types.PROFILE_NOT_EXISTS)
-
-      const index = profile[related].indexOf(relatedEntitie.id)
-      if (index === -1) return null
-
-      profile[related].splice(index, 1)
-      await profile.save()
-      await relatedEntitie.remove()
+      await this._profile.updateOne({ _id: relatedEntitie.profile }, { $pull: { [related]: relatedId } })
     } catch (error) {
       return Promise.reject(error)
     }
