@@ -1,3 +1,3 @@
 module.exports = {
-  moduleName: 'users-module',
+  moduleName: 'profiles-module',
 }
