@@ -13,7 +13,7 @@ const makeProfileJobsService = ({ ProfileFactory }) => {
       return addedProject
     } catch (error) {
       logger.error(`Error on add project to profile: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 
@@ -27,7 +27,7 @@ const makeProfileJobsService = ({ ProfileFactory }) => {
       return updatedJob
     } catch (error) {
       logger.error(`Error on update project: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 
@@ -40,7 +40,7 @@ const makeProfileJobsService = ({ ProfileFactory }) => {
       await ProfileFactory.removeRelated({ related: 'projects', relatedId: projectId })
     } catch (error) {
       logger.error(`Error on remove project: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 

@@ -10,8 +10,8 @@ const makeProfilesService = ({ ProfileFactory, idGenerator }) => {
   const createOne = async (profileDTO) => {
     try {
       let slug = slugify(profileDTO.fullName)
-      const slugExists = await ProfileFactory.findBySlug(slug, { populate: false })
-      if (slugExists) slug += `-${idGenerator(10)}`
+      const slugExists = await ProfileFactory.findBySlug(slug, { populate: false, addActive: false })
+      if (slugExists) slug += `-${idGenerator(5)}`
 
       logger.info(`Creating a new profile with slug: ${slug}`)
 

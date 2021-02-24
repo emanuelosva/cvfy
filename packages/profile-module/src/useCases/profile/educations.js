@@ -13,7 +13,7 @@ const makeProfileEducationsService = ({ ProfileFactory }) => {
       return addedEducation
     } catch (error) {
       logger.error(`Error on add education to profile: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 
@@ -27,7 +27,7 @@ const makeProfileEducationsService = ({ ProfileFactory }) => {
       return updatedJob
     } catch (error) {
       logger.error(`Error on update education: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 
@@ -40,7 +40,7 @@ const makeProfileEducationsService = ({ ProfileFactory }) => {
       await ProfileFactory.removeRelated({ related: 'educations', relatedId: educationId })
     } catch (error) {
       logger.error(`Error on remove education: ${error.message}`)
-      return Promise.resolve(toBusinessError(error))
+      return Promise.reject(toBusinessError(error))
     }
   }
 
