@@ -5,12 +5,12 @@
   "keywords": [],
   "author": "emanuelosva <emanuelosva@gmail.com>",
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "index.js",
   "directories": {
-    "src": "src"
+    ".": "."
   },
   "files": [
-    "src"
+    "."
   ],
   "publishConfig": {
     "access": "public"
