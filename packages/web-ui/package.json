@@ -1,13 +1,27 @@
 {
   "name": "@cvfy/web-ui",
   "version": "1.0.0",
-  "private": true,
+  "description": "cvfy web ui",
+  "keywords": [],
+  "author": "emanuelosva <emanuelosva@gmail.com>",
+  "license": "ISC",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@cvfy/auth-module": "1.0.0",
     "axios": "^0.21.1",
     "next": "10.0.7",
     "react": "17.0.1",
