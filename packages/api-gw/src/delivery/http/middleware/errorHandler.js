@@ -1,7 +1,7 @@
 const { errorHandler } = require('../../../errors')
 const { httpStatus, logger } = require('../../../utils')
 
-function centralErrorHandler(error, request, replay) {
+function centralErrorHandler(error, request, reply) {
   const defaultStatusCode = error.validationContext ? httpStatus.badRequest : httpStatus.serverError
   error.status = error.status ? error.status : defaultStatusCode
 
@@ -9,7 +9,7 @@ function centralErrorHandler(error, request, replay) {
 
   logger.error(apiError.toString())
 
-  replay.code(apiError.status).send({
+  reply.code(apiError.status).send({
     error: true,
     message: apiError.message || error.message,
     meta: {

@@ -17,7 +17,7 @@ const getTokenFromHeaders = (headers) => {
   return token
 }
 
-async function isAuthenticated(request, replay) {
+async function isAuthenticated(request, reply) {
   try {
     const token = getTokenFromHeaders(request.headers)
 
@@ -33,7 +33,7 @@ async function isAuthenticated(request, replay) {
 }
 
 function isRole(...roles) {
-  return function(request, replay) {
+  return function(request, reply) {
     const { user } = request
     if (!roles.includes(user.type)) {
       ApiError.throw(ApiError.types.FORBIDDEN, httpStatus.forbiden)
