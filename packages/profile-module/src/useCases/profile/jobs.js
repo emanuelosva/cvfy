@@ -44,11 +44,11 @@ const makeProfileJobsService = ({ ProfileFactory }) => {
     }
   }
 
-  return {
+  return Object.freeze({
     addOneToProfile,
     updateOne,
     removeOne,
-  }
+  })
 }
 
 module.exports = makeProfileJobsService

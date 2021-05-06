@@ -104,14 +104,14 @@ const makeProfilesService = ({ ProfileFactory, idGenerator }) => {
     }
   }
 
-  return {
+  return Object.freeze({
     createOne,
     findById,
     findBySlug,
     updateOne,
     makePublic,
     updateOwner,
-  }
+  })
 }
 
 module.exports = makeProfilesService

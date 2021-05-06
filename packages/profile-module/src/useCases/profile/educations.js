@@ -44,11 +44,11 @@ const makeProfileEducationsService = ({ ProfileFactory }) => {
     }
   }
 
-  return {
+  return Object.freeze({
     addOneToProfile,
     updateOne,
     removeOne,
-  }
+  })
 }
 
 module.exports = makeProfileEducationsService
