@@ -22,6 +22,7 @@ const updateProfile = {
   body: Joi.object({
     template: Joi.string().valid(...Object.values(profiles.templateNames)),
     fullName: Joi.string().min(2).max(inputs.MAX_GENERAL_STRING_LENGTH),
+    profesionalProfile: Joi.string().max(inputs.MAX_GENERAL_STRING_LENGTH),
     description: Joi.string().max(500),
     contact: Joi.object({
       email: Joi.string().email().max(inputs.MAX_GENERAL_STRING_LENGTH),
@@ -44,6 +45,7 @@ const createProfile = {
   body: Joi.object({
     template: Joi.string().valid(...Object.values(profiles.templateNames)).required(),
     fullName: Joi.string().min(2).max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
+    profesionalProfile: Joi.string().max(inputs.MAX_GENERAL_STRING_LENGTH).optional(),
     description: Joi.string().max(500),
     contact: Joi.object({
       email: Joi.string().email().max(inputs.MAX_GENERAL_STRING_LENGTH),
