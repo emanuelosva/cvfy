@@ -3,7 +3,7 @@ const config = require('./config')
 const { logger } = require('./utils')
 const { errorHandler } = require('./errors')
 
-if (require.main) {
+if (require.main === module) {
   server.listen(config.PORT, (error, address) => {
     if (error) {
       logger.error(error.message)
@@ -19,3 +19,4 @@ if (require.main) {
 }
 
 module.exports = server
+module.exports.default = server
