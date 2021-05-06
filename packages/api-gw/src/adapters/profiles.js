@@ -4,9 +4,9 @@ const { ApiError } = require('../errors')
 const { httpStatus } = require('../utils')
 
 async function createOneProfile(request, reply) {
-  const { body: profileDTO, headers } = request
+  const { body: profileDTO, headers, user } = request
 
-  const owner = headers['x-user-key'] || nanoid()
+  const owner = user.id || headers['x-user-key'] || nanoid()
   const profile = await profilesService.createOne({ ...profileDTO, owner })
 
   if (!headers['x-user-key']) reply.header('x-user-key', owner)

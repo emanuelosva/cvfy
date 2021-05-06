@@ -6,6 +6,7 @@ module.exports = [
   {
     method: 'POST',
     url: '/',
+    preValidation: [auth.isAuthenticated],
     schema: { ...profileValidators.createProfile },
     handler: profiles.createOneProfile,
   },
