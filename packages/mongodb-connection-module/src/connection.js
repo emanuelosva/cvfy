@@ -10,7 +10,7 @@ const MongoConnection = mongoose.createConnection(config.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  poolSize: 8,
+  poolSize: 10,
   auth: {
     user: config.MONGO_USER,
     password: config.MONGO_PASSWORD,
