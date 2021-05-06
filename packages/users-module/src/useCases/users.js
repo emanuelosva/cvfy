@@ -70,12 +70,12 @@ const makeUserService = ({ UsersModel }) => {
     }
   }
 
-  return {
+  return Object.freeze({
     createOne,
     findByEmail,
     findById,
     updateOne,
-  }
+  })
 }
 
 module.exports = makeUserService
