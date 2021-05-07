@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "alias": "cvfy-api",
+  "public": false,
+  "github": {
+    "enabled": false
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/serverless.js"
+    }
+  ]
+}

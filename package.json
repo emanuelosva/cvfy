@@ -7,6 +7,9 @@
   ],
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "postinstall": "lerna bootstrap"
+  },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.19.0",
