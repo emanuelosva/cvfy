@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const { userService } = require('@cvfy/users-module')
 const { authServices } = require('@cvfy/auth-module')
-const { ApiError } = require('../errors')
-const { constants, httpStatus } = require('../utils')
+const { ApiError } = require('../../../errors')
+const { constants, httpStatus } = require('../../../utils')
 
 async function login(request, reply) {
   const { body: { email, password } } = request

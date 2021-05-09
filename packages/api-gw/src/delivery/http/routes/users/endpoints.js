@@ -1,4 +1,4 @@
-const { users } = require('../../../../adapters')
+const { users } = require('../../adapters')
 const usersValidators = require('./validators')
 const { auth } = require('../../middleware')
 const { constants } = require('../../../../utils')

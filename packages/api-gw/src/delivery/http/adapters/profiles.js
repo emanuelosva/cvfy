@@ -1,7 +1,7 @@
 const { profilesService } = require('@cvfy/profile-module')
 const { nanoid } = require('nanoid')
-const { ApiError } = require('../errors')
-const { httpStatus } = require('../utils')
+const { ApiError } = require('../../../errors')
+const { httpStatus } = require('../../../utils')
 
 async function createOneProfile(request, reply) {
   const { body: profileDTO, headers, user } = request

@@ -1,6 +1,6 @@
 const { userService } = require('@cvfy/users-module')
-const { ApiError } = require('../errors')
-const { constants, httpStatus } = require('../utils')
+const { ApiError } = require('../../../errors')
+const { constants, httpStatus } = require('../../../utils')
 
 async function createAdminUser(request, reply) {
   const { body: userDTO } = request
@@ -13,7 +13,7 @@ async function createUser(request, reply) {
   const { body: userDTO } = request
 
   const user = await userService.createOne({ ...userDTO, type: constants.users.enumTypes.USER })
-  reply.code(201).send({ user })
+  reply.code(httpStatus.created).send({ user })
 }
 
 async function findOneUser(request, reply) {

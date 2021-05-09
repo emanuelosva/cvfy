@@ -1,4 +1,4 @@
-const { profiles } = require('../../../../adapters')
+const { profiles } = require('../../adapters')
 const profileValidators = require('./validators')
 const { auth } = require('../../middleware')
 
