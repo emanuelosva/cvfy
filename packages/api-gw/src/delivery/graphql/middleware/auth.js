@@ -3,17 +3,13 @@ const { ApiError } = require('../../../errors')
 
 const isAuthenticated = (ctx) => {
   const { authError } = ctx
-  if (authError) {
-    throw new GraphQLError(authError.message)
-  }
+  if (authError) throw new GraphQLError(authError.message)
 }
 
 const isAuthenticatedAndObjectOwner = (ctx, id) => {
   const { user, authError } = ctx
 
-  if (authError) {
-    throw new GraphQLError(authError.message)
-  }
+  if (authError) throw new GraphQLError(authError.message)
 
   if (user.id !== id) {
     try {
@@ -27,9 +23,7 @@ const isAuthenticatedAndObjectOwner = (ctx, id) => {
 const isAuthenticatedRole = async (ctx, ...roles) => {
   const { user, authError } = ctx
 
-  if (authError) {
-    throw new GraphQLError(authError.message)
-  }
+  if (authError) throw new GraphQLError(authError.message)
 
   if (!roles.includes(user.type)) {
     try {

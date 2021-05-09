@@ -12,7 +12,7 @@ const VoidType = new GraphQLScalarType({
   parseLiteral: () => null,
 })
 
-const NonNullableIDType = GraphQLNonNull(GraphQLID)
+const NonNullableIDType = new GraphQLNonNull(GraphQLID)
 
 module.exports = {
   NonNullableIDType,
