@@ -1,9 +1,11 @@
 const server = require('./delivery/http/server')
+const gqlServer = require('./delivery/graphql/server')
 const config = require('./config')
 const { logger } = require('./utils')
 const { errorHandler } = require('./errors')
 
 if (require.main === module) {
+  server.register(gqlServer.createHandler())
   server.listen(config.PORT, (error, address) => {
     if (error) {
       logger.error(error.message)
