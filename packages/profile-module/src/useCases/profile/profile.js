@@ -76,7 +76,7 @@ const makeProfilesService = ({ ProfileFactory, idGenerator }) => {
 
       const profile = await ProfileFactory.findById(id)
       if (!profile) ProfileErrors.throw(ProfileErrors.types.PROFILE_NOT_EXISTS, 404)
-      if (profile.owner !== owner) ProfileErrors.throw(ProfileErrors.types.ONLY_OWNER_CAN_PERFOMR_IT, 404)
+      if (profile.owner !== owner) ProfileErrors.throw(ProfileErrors.types.ONLY_OWNER_CAN_PERFOMR_IT, 403)
 
       profile.isPublic = true
       await profile.save()
