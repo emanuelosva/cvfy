@@ -89,6 +89,20 @@ const addProject = {
       startTime: Joi.date(),
       endTime: Joi.date(),
     }),
+    contact: Joi.object({
+      email: Joi.string().email().max(inputs.MAX_GENERAL_STRING_LENGTH),
+      phoneNumber: Joi.string().regex(inputs.PHONE_NUMBER_REGEX),
+      optionalLink: Joi.string().uri(),
+    }).optional(),
+    socialLinks: Joi.array().optional().items(
+      Joi.object({
+        name: Joi.string().min(1).max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
+        link: Joi.string().uri().max(inputs.MAX_GENERAL_STRING_LENGTH).required(),
+      }),
+    ),
+    skills: Joi.array().optional().items(
+      Joi.string().max(inputs.MAX_GENERAL_STRING_LENGTH),
+    ),
   }),
 }
 
