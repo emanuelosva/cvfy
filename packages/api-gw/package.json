@@ -26,11 +26,13 @@
     "@cvfy/mongodb-connection-module": "1.0.0",
     "@cvfy/profile-module": "1.0.0",
     "@cvfy/users-module": "1.0.0",
+    "apollo-server-fastify": "^2.24.0",
     "bcrypt": "^5.0.0",
     "fastify": "^3.12.0",
     "fastify-cors": "^5.2.0",
     "fastify-helmet": "^5.2.0",
     "fastify-rate-limit": "^5.0.1",
+    "graphql": "^15.5.0",
     "joi": "^17.4.0",
     "nanoid": "^3.1.22"
   },
