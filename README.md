@@ -1,3 +1,3 @@
 # CVfy
 
-> A CMS for create online CV's
+> A CMS to create online CV's (under construction)
