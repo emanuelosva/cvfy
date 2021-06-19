@@ -12,7 +12,7 @@ const {
  */
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
-  description: 'A project is a...',
+  description: 'Represents real life projects in wich user is involved',
   fields: {
     id: { type: GraphQLID, description: 'Project Id' },
     profile: { type: GraphQLID, description: 'Id of the related profile' },
@@ -58,7 +58,7 @@ const ProjectUpdateInputType = new GraphQLInputObjectType({
  */
 const JobType = new GraphQLObjectType({
   name: 'Job',
-  description: 'A job is a...',
+  description: 'Actual or pasts user jobs',
   fields: {
     id: { type: GraphQLID, description: 'job Id' },
     profile: { type: GraphQLID, description: 'Id of the related profile' },
@@ -102,7 +102,7 @@ const JobUpdateInputType = new GraphQLInputObjectType({
  */
 const EducationType = new GraphQLObjectType({
   name: 'Education',
-  description: 'A Education is a...',
+  description: 'Bachelor or cetifications owned by user',
   fields: {
     id: { type: GraphQLID, description: 'Education Id' },
     profile: { type: GraphQLID, description: 'Id of the related profile' },
@@ -145,7 +145,7 @@ const EducationUpdateInputType = new GraphQLInputObjectType({
  */
 const ProfileType = new GraphQLObjectType({
   name: 'Profile',
-  description: 'A Project s is a...',
+  description: 'The complete CV entitie',
   fields: {
     id: { type: GraphQLID, description: 'Profile Id' },
     owner: { type: GraphQLID, description: 'Owner Id' },
